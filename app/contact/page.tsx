@@ -106,7 +106,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-bold">Our Location</h3>
-                      <p className="text-gray-500">123 Eco Street, Kowloon, Hong Kong</p>
+                      <p className="text-gray-500">123 Eco Street, Eco, Hong Kong</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -115,7 +115,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-bold">Email Us</h3>
-                      <p className="text-gray-500">info@ecofeedhk.com</p>
+                      <p className="text-gray-500">Eco@littleblack111.com</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -124,7 +124,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-bold">Call Us</h3>
-                      <p className="text-gray-500">+852 1234 5678</p>
+                      <p className="text-gray-500">+852 52605503</p>
                     </div>
                   </div>
                 </div>
@@ -144,15 +144,7 @@ export default function ContactPage() {
                   <div className="grid gap-4">
                     <div>
                       <h4 className="font-bold">Kowloon Center</h4>
-                      <p className="text-gray-500">123 Eco Street, Kowloon</p>
-                    </div>
-                    <div>
-                      <h4 className="font-bold">New Territories Center</h4>
-                      <p className="text-gray-500">456 Green Road, Sha Tin</p>
-                    </div>
-                    <div>
-                      <h4 className="font-bold">Hong Kong Island Center</h4>
-                      <p className="text-gray-500">789 Recycle Avenue, North Point</p>
+                      <p className="text-gray-500">123 Eco Street, Eco</p>
                     </div>
                   </div>
                 </div>
@@ -315,10 +307,10 @@ export default function ContactPage() {
             <div className="space-y-4">
               <h3 className="font-bold">Contact</h3>
               <ul className="grid gap-2">
-                <li className="text-green-200">123 Eco Street, Kowloon</li>
+                <li className="text-green-200">123 Eco Street, Eco</li>
                 <li className="text-green-200">Hong Kong</li>
-                <li className="text-green-200">info@ecofeedhk.com</li>
-                <li className="text-green-200">+852 1234 5678</li>
+                <li className="text-green-200">Eco@littleblack111.com</li>
+                <li className="text-green-200">+852 91476484</li>
               </ul>
             </div>
             <div className="space-y-4">

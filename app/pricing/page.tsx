@@ -408,10 +408,10 @@ export default function PricingPage() {
             <div className="space-y-4">
               <h3 className="font-bold">Contact</h3>
               <ul className="grid gap-2">
-                <li className="text-green-200">123 Eco Street, Kowloon</li>
+                <li className="text-green-200">123 Eco Street, Eco</li>
                 <li className="text-green-200">Hong Kong</li>
-                <li className="text-green-200">info@ecofeedhk.com</li>
-                <li className="text-green-200">+852 1234 5678</li>
+                <li className="text-green-200">Eco@littleblack111.com</li>
+                <li className="text-green-200">+852 91476484</li>
               </ul>
             </div>
             <div className="space-y-4">

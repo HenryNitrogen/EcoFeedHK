@@ -323,21 +323,21 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl gap-8 py-12 md:grid-cols-3">
               <AnimatedSection direction="up" delay={0.2}>
                 <div className="flex flex-col items-center space-y-2 text-center">
-                  <AnimatedCounter end={5000} suffix="+" className="text-4xl font-bold text-green-600" />
+                  <AnimatedCounter end={0} suffix="+" className="text-4xl font-bold text-green-600" />
                   <h3 className="text-xl font-bold">Tons Recycled</h3>
                   <p className="text-gray-500">Food waste diverted from landfills</p>
                 </div>
               </AnimatedSection>
               <AnimatedSection direction="up" delay={0.4}>
                 <div className="flex flex-col items-center space-y-2 text-center">
-                  <AnimatedCounter end={200} suffix="+" className="text-4xl font-bold text-green-600" />
+                  <AnimatedCounter end={0} suffix="+" className="text-4xl font-bold text-green-600" />
                   <h3 className="text-xl font-bold">Partners</h3>
                   <p className="text-gray-500">Schools and canteens participating</p>
                 </div>
               </AnimatedSection>
               <AnimatedSection direction="up" delay={0.6}>
                 <div className="flex flex-col items-center space-y-2 text-center">
-                  <AnimatedCounter end={3000} suffix="+" className="text-4xl font-bold text-green-600" />
+                  <AnimatedCounter end={0} suffix="+" className="text-4xl font-bold text-green-600" />
                   <h3 className="text-xl font-bold">CO₂ Reduction</h3>
                   <p className="text-gray-500">Tons of CO₂ emissions prevented</p>
                 </div>
@@ -386,10 +386,10 @@ export default function Home() {
             <div className="space-y-4">
               <h3 className="font-bold">Contact</h3>
               <ul className="grid gap-2">
-                <li className="text-green-200">123 Eco Street, Kowloon</li>
+                <li className="text-green-200">123 Eco Street, Eco</li>
                 <li className="text-green-200">Hong Kong</li>
-                <li className="text-green-200">info@ecofeedhk.com</li>
-                <li className="text-green-200">+852 1234 5678</li>
+                <li className="text-green-200">Eco@littleblack111.com</li>
+                <li className="text-green-200">+852 91476484</li>
               </ul>
             </div>
             <div className="space-y-4">
