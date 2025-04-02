@@ -1,13 +1,89 @@
+"use client"
 import Link from "next/link"
-import { Check, DollarSign, Truck } from "lucide-react"
+import { Check, DollarSign, Truck, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react"
 
 export default function PricingPage() {
+  // State for earnings calculator
+  const [calculatorData, setCalculatorData] = useState({
+    wasteAmount: "",
+    serviceType: "self-delivery"
+  })
+  const [calculatorSubmitted, setCalculatorSubmitted] = useState(false)
+  const [earnings, setEarnings] = useState({
+    weekly: 0,
+    monthly: 0,
+    yearly: 0
+  })
+  
+  // State for subscription form
+  const [email, setEmail] = useState("")
+  const [subscriptionSubmitted, setSubscriptionSubmitted] = useState(false)
+  
+  // Handle earnings calculator input change
+  const handleCalculatorChange = (e) => {
+    const { id, value } = e.target
+    setCalculatorData(prev => ({
+      ...prev,
+      [id]: value
+    }))
+  }
+  
+  // Handle service type selection change
+  const handleServiceTypeChange = (value) => {
+    setCalculatorData(prev => ({
+      ...prev,
+      serviceType: value
+    }))
+  }
+  
+  // Handle earnings calculator submission
+  const handleCalculate = (e) => {
+    e.preventDefault()
+    
+    // Calculate earnings
+    const amount = parseFloat(calculatorData.wasteAmount) || 0
+    const rate = calculatorData.serviceType === "self-delivery" ? 0.5 : 0.3
+    
+    const weeklyEarning = amount * rate
+    const monthlyEarning = weeklyEarning * 4.33  // Average weeks in a month
+    const yearlyEarning = weeklyEarning * 52
+    
+    setEarnings({
+      weekly: weeklyEarning.toFixed(2),
+      monthly: monthlyEarning.toFixed(2),
+      yearly: yearlyEarning.toFixed(2)
+    })
+    
+    // Show success animation
+    setCalculatorSubmitted(true)
+    
+    // Reset submission status after 3 seconds
+    setTimeout(() => {
+      setCalculatorSubmitted(false)
+    }, 3000)
+  }
+  
+  // Handle subscription form submission
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    
+    // Show success animation
+    setSubscriptionSubmitted(true)
+    
+    // Reset form and submission status after 3 seconds
+    setTimeout(() => {
+      setEmail("")
+      setSubscriptionSubmitted(false)
+    }, 3000)
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-white border-b sticky top-0 z-10">
@@ -222,51 +298,75 @@ export default function PricingPage() {
                   <CardTitle>Calculate Your Earnings</CardTitle>
                   <CardDescription>Enter your estimated food waste quantity</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="grid gap-6">
-                    <div className="grid gap-2">
-                      <Label htmlFor="waste-amount">Estimated food waste per week (kg)</Label>
-                      <div className="flex items-center gap-2">
-                        <Input id="waste-amount" type="number" placeholder="Enter amount" />
-                        <span>kg</span>
+                <form onSubmit={handleCalculate}>
+                  <CardContent>
+                    {calculatorSubmitted && (
+                      <div className="bg-green-100 border border-green-200 text-green-800 rounded-md p-4 flex items-center gap-2 animate-fade-in mb-4">
+                        <CheckCircle className="h-5 w-5 text-green-600" />
+                        <span>Calculation complete!</span>
+                      </div>
+                    )}
+                    <div className="grid gap-6">
+                      <div className="grid gap-2">
+                        <Label htmlFor="wasteAmount">Estimated food waste per week (kg)</Label>
+                        <div className="flex items-center gap-2">
+                          <Input 
+                            id="wasteAmount" 
+                            type="number" 
+                            placeholder="Enter amount" 
+                            value={calculatorData.wasteAmount}
+                            onChange={handleCalculatorChange}
+                            required
+                          />
+                          <span>kg</span>
+                        </div>
+                      </div>
+                      <RadioGroup 
+                        value={calculatorData.serviceType}
+                        onValueChange={handleServiceTypeChange}
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="self-delivery" id="self-delivery" />
+                          <Label htmlFor="self-delivery" className="flex items-center gap-2">
+                            <Truck className="h-4 w-4" /> Self-Delivery (HK$0.50/kg)
+                          </Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="collection" id="collection" />
+                          <Label htmlFor="collection" className="flex items-center gap-2">
+                            <Truck className="h-4 w-4" /> Collection Service (HK$0.30/kg)
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="flex flex-col items-start gap-4">
+                    <div className="w-full p-4 bg-green-50 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">Weekly earnings:</span>
+                        <span className="font-bold">HK${earnings.weekly}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-2">
+                        <span className="font-medium">Monthly earnings:</span>
+                        <span className="font-bold">HK${earnings.monthly}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-2">
+                        <span className="font-medium">Yearly earnings:</span>
+                        <span className="font-bold">HK${earnings.yearly}</span>
                       </div>
                     </div>
-                    <RadioGroup defaultValue="self-delivery">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="self-delivery" id="self-delivery" />
-                        <Label htmlFor="self-delivery" className="flex items-center gap-2">
-                          <Truck className="h-4 w-4" /> Self-Delivery (HK$0.50/kg)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="collection" id="collection" />
-                        <Label htmlFor="collection" className="flex items-center gap-2">
-                          <Truck className="h-4 w-4" /> Collection Service (HK$0.30/kg)
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex flex-col items-start gap-4">
-                  <div className="w-full p-4 bg-green-50 rounded-lg">
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">Weekly earnings:</span>
-                      <span className="font-bold">HK$0.00</span>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="font-medium">Monthly earnings:</span>
-                      <span className="font-bold">HK$0.00</span>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="font-medium">Yearly earnings:</span>
-                      <span className="font-bold">HK$0.00</span>
-                    </div>
-                  </div>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">Calculate</Button>
-                  <p className="text-xs text-gray-500 text-center w-full">
-                    This is an estimate. Actual earnings may vary based on the weight and quality of food waste.
-                  </p>
-                </CardFooter>
+                    <Button 
+                      type="submit"
+                      className="w-full bg-green-600 hover:bg-green-700"
+                      disabled={calculatorSubmitted}
+                    >
+                      {calculatorSubmitted ? "Calculating..." : "Calculate"}
+                    </Button>
+                    <p className="text-xs text-gray-500 text-center w-full">
+                      This is an estimate. Actual earnings may vary based on the weight and quality of food waste.
+                    </p>
+                  </CardFooter>
+                </form>
               </Card>
             </div>
           </div>
@@ -417,14 +517,29 @@ export default function PricingPage() {
             <div className="space-y-4">
               <h3 className="font-bold">Subscribe</h3>
               <p className="text-green-200">Stay updated with our latest news and offers.</p>
-              <form className="flex gap-2">
-                <input
+              <form className="flex gap-2" onSubmit={handleSubscribe}>
+                <Input
                   type="email"
                   placeholder="Your email"
                   className="rounded-md px-3 py-2 text-sm text-black w-full"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
-                <Button className="bg-green-600 hover:bg-green-700">Subscribe</Button>
+                <Button 
+                  type="submit"
+                  className="bg-green-600 hover:bg-green-700"
+                  disabled={subscriptionSubmitted}
+                >
+                  {subscriptionSubmitted ? "Sent" : "Subscribe"}
+                </Button>
               </form>
+              {subscriptionSubmitted && (
+                <div className="bg-green-800 text-green-100 rounded-md p-2 text-sm flex items-center gap-2 animate-fade-in">
+                  <CheckCircle className="h-4 w-4" />
+                  <span>Thank you for subscribing!</span>
+                </div>
+              )}
             </div>
           </div>
           <div className="mt-8 border-t border-green-800 pt-8 text-center text-green-200">
@@ -433,6 +548,6 @@ export default function PricingPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 

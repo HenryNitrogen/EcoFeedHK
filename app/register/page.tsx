@@ -1,5 +1,6 @@
+"use client"
 import Link from "next/link"
-import { Truck, DollarSign } from "lucide-react"
+import { Truck, DollarSign, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -7,8 +8,69 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
 
 export default function RegisterPage() {
+  const [formData, setFormData] = useState({
+    organization: "",
+    type: "",
+    contactName: "",
+    email: "",
+    phone: "",
+    address: "",
+    service: "self-delivery",
+    wasteAmount: "",
+    comments: ""
+  })
+  
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  
+  const handleInputChange = (e) => {
+    const { id, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }))
+  }
+  
+  const handleSelectChange = (value) => {
+    setFormData(prev => ({
+      ...prev,
+      type: value
+    }))
+  }
+  
+  const handleServiceChange = (value) => {
+    setFormData(prev => ({
+      ...prev,
+      service: value
+    }))
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Here you would normally send the data to your server
+    
+    // Show success animation
+    setIsSubmitted(true)
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({
+        organization: "",
+        type: "",
+        contactName: "",
+        email: "",
+        phone: "",
+        address: "",
+        service: "self-delivery",
+        wasteAmount: "",
+        comments: ""
+      })
+      setIsSubmitted(false)
+    }, 3000)
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-white border-b sticky top-0 z-10">
@@ -102,7 +164,10 @@ export default function RegisterPage() {
                   if needed.
                 </p>
                 <div className="grid gap-4 md:grid-cols-2">
-                  <Card className="relative border-2 hover:border-green-600 cursor-pointer">
+                  <Card 
+                    className={`relative border-2 ${formData.service === 'self-delivery' ? 'border-green-600' : ''} hover:border-green-600 cursor-pointer`}
+                    onClick={() => handleServiceChange('self-delivery')}
+                  >
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Truck className="h-5 w-5 text-green-600" />
@@ -120,9 +185,12 @@ export default function RegisterPage() {
                         Deliver your food waste to our recycling centers and receive a higher payout rate.
                       </p>
                     </CardContent>
-                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-2 border-green-600"></div>
+                    <div className={`absolute top-2 right-2 h-4 w-4 rounded-full border-2 ${formData.service === 'self-delivery' ? 'bg-green-600 border-green-600' : ''}`}></div>
                   </Card>
-                  <Card className="relative border-2 hover:border-green-600 cursor-pointer">
+                  <Card 
+                    className={`relative border-2 ${formData.service === 'collection' ? 'border-green-600' : ''} hover:border-green-600 cursor-pointer`}
+                    onClick={() => handleServiceChange('collection')}
+                  >
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Truck className="h-5 w-5 text-green-600" />
@@ -140,7 +208,7 @@ export default function RegisterPage() {
                         We collect food waste directly from your location at scheduled times.
                       </p>
                     </CardContent>
-                    <div className="absolute top-2 right-2 h-4 w-4 rounded-full border-2"></div>
+                    <div className={`absolute top-2 right-2 h-4 w-4 rounded-full border-2 ${formData.service === 'collection' ? 'bg-green-600 border-green-600' : ''}`}></div>
                   </Card>
                 </div>
                 <div className="space-y-4 mt-8">
@@ -240,67 +308,131 @@ export default function RegisterPage() {
                     <CardTitle>Registration Form</CardTitle>
                     <CardDescription>Please fill out the form below to register for our service</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="organization">Organization Name</Label>
-                      <Input id="organization" placeholder="Enter your organization name" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="type">Organization Type</Label>
-                      <Select>
-                        <SelectTrigger id="type">
-                          <SelectValue placeholder="Select organization type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="school">School</SelectItem>
-                          <SelectItem value="canteen">Canteen</SelectItem>
-                          <SelectItem value="restaurant">Restaurant</SelectItem>
-                          <SelectItem value="hotel">Hotel</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="contact-name">Contact Person</Label>
-                      <Input id="contact-name" placeholder="Enter contact person's name" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input id="email" type="email" placeholder="Enter email address" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" placeholder="Enter phone number" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="address">Address</Label>
-                      <Textarea id="address" placeholder="Enter your organization's address" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label>Preferred Service</Label>
-                      <RadioGroup defaultValue="self-delivery">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="self-delivery" id="r-self-delivery" />
-                          <Label htmlFor="r-self-delivery">Self-Delivery (HK$0.50/kg)</Label>
+                  <form onSubmit={handleSubmit}>
+                    <CardContent className="space-y-4">
+                      {isSubmitted && (
+                        <div className="bg-green-100 border border-green-200 text-green-800 rounded-md p-4 flex items-center gap-2 animate-fade-in">
+                          <CheckCircle className="h-5 w-5 text-green-600" />
+                          <span>Registration submitted successfully! We'll contact you soon.</span>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="collection" id="r-collection" />
-                          <Label htmlFor="r-collection">Collection Service (HK$0.30/kg)</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="waste-amount">Estimated Food Waste (kg/week)</Label>
-                      <Input id="waste-amount" type="number" placeholder="Enter estimated amount" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="comments">Additional Comments</Label>
-                      <Textarea id="comments" placeholder="Any additional information or questions" />
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-green-600 hover:bg-green-700">Submit Registration</Button>
-                  </CardFooter>
+                      )}
+                      <div className="grid gap-2">
+                        <Label htmlFor="organization">Organization Name</Label>
+                        <Input 
+                          id="organization" 
+                          placeholder="Enter your organization name" 
+                          value={formData.organization}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="type">Organization Type</Label>
+                        <Select 
+                          value={formData.type} 
+                          onValueChange={handleSelectChange}
+                          required
+                        >
+                          <SelectTrigger id="type">
+                            <SelectValue placeholder="Select organization type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="school">School</SelectItem>
+                            <SelectItem value="canteen">Canteen</SelectItem>
+                            <SelectItem value="restaurant">Restaurant</SelectItem>
+                            <SelectItem value="hotel">Hotel</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="contactName">Contact Person</Label>
+                        <Input 
+                          id="contactName" 
+                          placeholder="Enter contact person's name" 
+                          value={formData.contactName}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input 
+                          id="email" 
+                          type="email" 
+                          placeholder="Enter email address" 
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone Number</Label>
+                        <Input 
+                          id="phone" 
+                          placeholder="Enter phone number" 
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="address">Address</Label>
+                        <Textarea 
+                          id="address" 
+                          placeholder="Enter your organization's address" 
+                          value={formData.address}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label>Preferred Service</Label>
+                        <RadioGroup 
+                          value={formData.service} 
+                          onValueChange={handleServiceChange}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="self-delivery" id="r-self-delivery" />
+                            <Label htmlFor="r-self-delivery">Self-Delivery (HK$0.50/kg)</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="collection" id="r-collection" />
+                            <Label htmlFor="r-collection">Collection Service (HK$0.30/kg)</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="wasteAmount">Estimated Food Waste (kg/week)</Label>
+                        <Input 
+                          id="wasteAmount" 
+                          type="number" 
+                          placeholder="Enter estimated amount" 
+                          value={formData.wasteAmount}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="comments">Additional Comments</Label>
+                        <Textarea 
+                          id="comments" 
+                          placeholder="Any additional information or questions" 
+                          value={formData.comments}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button 
+                        type="submit"
+                        className="w-full bg-green-600 hover:bg-green-700"
+                        disabled={isSubmitted}
+                      >
+                        {isSubmitted ? "Submitting..." : "Submit Registration"}
+                      </Button>
+                    </CardFooter>
+                  </form>
                 </Card>
               </div>
             </div>

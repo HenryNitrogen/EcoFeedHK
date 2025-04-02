@@ -1,12 +1,54 @@
+"use client"
 import Link from "next/link"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    organization: "",
+    subject: "",
+    message: ""
+  })
+  
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  
+  const handleInputChange = (e) => {
+    const { id, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }))
+  }
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Here you would normally send the data to your server
+    
+    // Show success animation
+    setIsSubmitted(true)
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        organization: "",
+        subject: "",
+        message: ""
+      })
+      setIsSubmitted(false)
+    }, 3000)
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-white border-b sticky top-0 z-10">
@@ -157,35 +199,86 @@ export default function ContactPage() {
                       Fill out the form below and we'll get back to you as soon as possible
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Enter your name" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="Enter your email" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" placeholder="Enter your phone number" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="organization">Organization (Optional)</Label>
-                      <Input id="organization" placeholder="Enter your organization name" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="subject">Subject</Label>
-                      <Input id="subject" placeholder="Enter message subject" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea id="message" placeholder="Enter your message" className="min-h-[120px]" />
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-green-600 hover:bg-green-700">Send Message</Button>
-                  </CardFooter>
+                  <form onSubmit={handleSubmit}>
+                    <CardContent className="space-y-4">
+                      {isSubmitted && (
+                        <div className="bg-green-100 border border-green-200 text-green-800 rounded-md p-4 flex items-center gap-2 animate-fade-in">
+                          <CheckCircle className="h-5 w-5 text-green-600" />
+                          <span>Message sent successfully! We'll get back to you soon.</span>
+                        </div>
+                      )}
+                      <div className="grid gap-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input 
+                          id="name" 
+                          placeholder="Enter your name" 
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input 
+                          id="email" 
+                          type="email" 
+                          placeholder="Enter your email" 
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input 
+                          id="phone" 
+                          placeholder="Enter your phone number" 
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="organization">Organization (Optional)</Label>
+                        <Input 
+                          id="organization" 
+                          placeholder="Enter your organization name" 
+                          value={formData.organization}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="subject">Subject</Label>
+                        <Input 
+                          id="subject" 
+                          placeholder="Enter message subject" 
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea 
+                          id="message" 
+                          placeholder="Enter your message" 
+                          className="min-h-[120px]" 
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button 
+                        type="submit" 
+                        className="w-full bg-green-600 hover:bg-green-700"
+                        disabled={isSubmitted}
+                      >
+                        {isSubmitted ? "Sending..." : "Send Message"}
+                      </Button>
+                    </CardFooter>
+                  </form>
                 </Card>
               </div>
             </div>
