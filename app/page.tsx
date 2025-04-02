@@ -96,7 +96,7 @@ export default function Home() {
                   }}
                 >
                   <Image
-                    src="/placeholder.svg?height=550&width=550"
+                    src="/image (2).jpg"
                     alt="Food waste recycling"
                     width={550}
                     height={550}
@@ -277,7 +277,7 @@ export default function Home() {
                   }}
                 >
                   <Image
-                    src="/placeholder.svg?height=550&width=550"
+                    src="/trash.jpg"
                     alt="Join our recycling program"
                     width={550}
                     height={550}
