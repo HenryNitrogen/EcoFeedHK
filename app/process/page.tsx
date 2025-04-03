@@ -70,7 +70,7 @@ export default function ProcessPage() {
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Process</h1>
                   <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    How we transform food waste into high-quality animal feed
+                    How we transform food waste into high-quality fertilizer
                   </p>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function ProcessPage() {
                 <div className="space-y-4">
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">From Waste to Feed</h2>
                   <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Our innovative process transforms food waste from canteens and schools into nutritious animal feed.
+                    Our innovative process transforms food waste from canteens and schools into nutritious fertilizer.
                     This not only reduces waste going to landfills but also creates a valuable resource for local farms.
                   </p>
                   <div className="space-y-4">
@@ -134,7 +134,7 @@ export default function ProcessPage() {
                       <div>
                         <h3 className="font-bold">Quality Assured</h3>
                         <p className="text-gray-500">
-                          Rigorous testing ensures our animal feed meets all safety standards.
+                          Rigorous testing ensures our fertilizer meets all safety standards.
                         </p>
                       </div>
                     </motion.div>
@@ -172,7 +172,7 @@ export default function ProcessPage() {
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Our Step-by-Step Process</h2>
                   <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    How we transform food waste into high-quality animal feed
+                    How we transform food waste into high-quality fertilizer
                   </p>
                 </div>
               </div>
@@ -196,14 +196,14 @@ export default function ProcessPage() {
                 <AnimatedProcessStep
                   icon={Flask}
                   title="Testing"
-                  description="Rigorous testing is conducted to ensure the food waste is clean and safe for processing into animal feed."
+                  description="Rigorous testing is conducted to ensure the food waste is clean and safe for processing into fertilizer."
                   step={3}
                   delay={0.5}
                 />
                 <AnimatedProcessStep
                   icon={Building}
                   title="Processing"
-                  description="The clean food waste is processed into nutritious animal feed using our specialized equipment and techniques."
+                  description="The clean food waste is processed into nutritious fertilizer using our specialized equipment and techniques."
                   step={4}
                   delay={0.7}
                 />
@@ -226,21 +226,21 @@ export default function ProcessPage() {
                 <AnimatedProcessStep
                   icon={Flask}
                   title="Quality Control"
-                  description="The processed animal feed undergoes quality control checks to ensure it meets all safety and nutritional standards."
+                  description="The processed fertilizer undergoes quality control checks to ensure it meets all safety and nutritional standards."
                   step={5}
                   delay={0.1}
                 />
                 <AnimatedProcessStep
                   icon={Building}
                   title="Packaging"
-                  description="The animal feed is packaged in eco-friendly containers, ready for distribution to local farms."
+                  description="The fertilizer is packaged in eco-friendly containers, ready for distribution to local farms."
                   step={6}
                   delay={0.3}
                 />
                 <AnimatedProcessStep
                   icon={Truck}
                   title="Distribution"
-                  description="The high-quality animal feed is distributed to local farms, completing the circular economy cycle."
+                  description="The high-quality fertilizer is distributed to local farms, completing the circular economy cycle."
                   step={7}
                   delay={0.5}
                 />
@@ -305,7 +305,7 @@ export default function ProcessPage() {
                     <CardContent>
                       <p className="text-gray-500">
                         We test the acidity level of the food waste to prevent spoilage and ensure it is safe for
-                        processing. This helps maintain the quality and safety of the final animal feed product.
+                        processing. This helps maintain the quality and safety of the final fertilizer product.
                       </p>
                     </CardContent>
                   </Card>

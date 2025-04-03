@@ -71,7 +71,7 @@ export default function Home() {
                     Turn Food Waste into Value for Hong Kong
                   </h1>
                   <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    Join our initiative to recycle food waste from canteens and schools into high-quality animal feed.
+                    Join our initiative to recycle food waste from canteens and schools into high-quality fertilizer.
                     Get paid for your contribution to a more sustainable Hong Kong.
                   </p>
                   <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -206,7 +206,7 @@ export default function Home() {
                   </div>
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">From Waste to Feed</h2>
                   <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    How we transform food waste into high-quality animal feed
+                    How we transform food waste into high-quality fertilizer
                   </p>
                 </div>
               </div>
@@ -246,7 +246,7 @@ export default function Home() {
                     </div>
                     <h3 className="text-xl font-bold">Production & Distribution</h3>
                     <p className="text-center text-gray-500">
-                      The processed waste is transformed into nutritious animal feed for local farms.
+                      The processed waste is transformed into nutritious fertilizer for local farms.
                     </p>
                   </div>
                 </AnimatedCard>
