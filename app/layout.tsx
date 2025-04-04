@@ -18,14 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Other head elements */}
-        <Script
-          src="https://www.google.com/recaptcha/api.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://www.google.com/recaptcha/enterprise.js?render=6LfyuAkrAAAAAJv0CFrish2CcOe4C-OKKpetKqW8"
-          strategy="afterInteractive"
-        />
       </head>
       <body>
         {children}

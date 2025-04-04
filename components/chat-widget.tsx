@@ -34,7 +34,6 @@ export function ChatWidget() {
   ])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [isVerified, setIsVerified] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   
   // System prompt - not displayed to users
@@ -128,38 +127,6 @@ Restriction:
 Only answer questions based on the above content. For anything outside this scope, respond: "I cannot answer that question."`
   }
   
-  const verifyRecaptcha = () => {
-    if (typeof window !== 'undefined' && window.grecaptcha) {
-      window.grecaptcha.enterprise.ready(async () => {
-        try {
-          const token = await window.grecaptcha.enterprise.execute(
-            '6LfyuAkrAAAAAJv0CFrish2CcOe4C-OKKpetKqW8', 
-            { action: 'CHAT' }
-          );
-          if (token) {
-            setIsVerified(true);
-          }
-        } catch (error) {
-          console.error('reCAPTCHA error:', error);
-        }
-      });
-    }
-  };
-
-  // Reset verification when chat is closed
-  useEffect(() => {
-    if (!isOpen) {
-      setIsVerified(false)
-    }
-  }, [isOpen])
-
-  // Trigger verification when chat opens
-  useEffect(() => {
-    if (isOpen && !isVerified) {
-      verifyRecaptcha();
-    }
-  }, [isOpen, isVerified])
-  
   // Scroll to bottom whenever messages change
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -168,7 +135,7 @@ Only answer questions based on the above content. For anything outside this scop
   }, [messages])
 
   const handleSendMessage = async () => {
-    if (!input.trim() || !isVerified) return
+    if (!input.trim()) return
     
     // Add user message to chat
     const userMessage = { role: "user" as const, content: input.trim() }
@@ -222,7 +189,7 @@ Only answer questions based on the above content. For anything outside this scop
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey && isVerified) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
     }
@@ -282,37 +249,23 @@ Only answer questions based on the above content. For anything outside this scop
                       </div>
                     </div>
                   )}
-                  {!isVerified && (
-                    <div className="flex justify-center my-4">
-                      <div className="text-sm text-gray-600 flex items-center gap-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Verifying your browser...</span>
-                      </div>
-                    </div>
-                  )}
-                  {isVerified && (
-                    <div className="flex justify-center text-green-600 items-center gap-1 text-sm">
-                      <ShieldCheck className="h-4 w-4" />
-                      <span>Verification complete</span>
-                    </div>
-                  )}
                   <div ref={messagesEndRef} />
                 </div>
               </CardContent>
               <CardFooter className="p-3 pt-2 border-t bg-white">
                 <div className="flex w-full gap-2">
                   <Input
-                    placeholder={isVerified ? "Type your message..." : "Please complete verification..."}
+                    placeholder="Type your message..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    disabled={isLoading || !isVerified}
+                    disabled={isLoading}
                     className="flex-1"
                   />
                   <Button 
                     size="icon" 
                     onClick={handleSendMessage} 
-                    disabled={!input.trim() || isLoading || !isVerified}
+                    disabled={!input.trim() || isLoading}
                     className="bg-green-600 hover:bg-green-700"
                   >
                     {isLoading ? (
