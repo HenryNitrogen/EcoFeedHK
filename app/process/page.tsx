@@ -153,11 +153,11 @@ export default function ProcessPage() {
                   }}
                 >
                   <Image
-                    src="/placeholder.svg?height=550&width=550"
+                    src="/me.png"
                     alt="Food waste recycling process"
                     width={550}
                     height={550}
-                    className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+                    className="mx-auto rounded-xl object-contain w-full h-auto"
                   />
                 </motion.div>
               </AnimatedSection>
@@ -378,7 +378,7 @@ export default function ProcessPage() {
                   }}
                 >
                   <Image
-                    src="/placeholder.svg?height=550&width=550"
+                    src="/join.png"
                     alt="Join our recycling program"
                     width={550}
                     height={550}

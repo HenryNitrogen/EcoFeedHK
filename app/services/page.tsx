@@ -154,13 +154,13 @@ export default function ServicesPage() {
                     },
                   }}
                 >
-                  <Image
-                    src="/placeholder.svg?height=550&width=550"
-                    alt="Self-delivery service"
-                    width={550}
-                    height={550}
-                    className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
-                  />
+                <Image
+                  src="/self.png"
+                  alt="Self-delivery service"
+                  width={550}
+                  height={550}
+                  className="mx-auto rounded-xl object-contain w-full h-auto" // 修改这一行
+                />
                 </motion.div>
               </AnimatedSection>
             </div>
@@ -182,7 +182,7 @@ export default function ServicesPage() {
                   }}
                 >
                   <Image
-                    src="/placeholder.svg?height=550&width=550"
+                    src="/co.png"
                     alt="Collection service"
                     width={550}
                     height={550}
