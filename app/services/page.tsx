@@ -15,7 +15,7 @@ export default function ServicesPage() {
       <header className="bg-white border-b sticky top-0 z-10">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2">
-            <AnimatedIcon icon={Recycle} className="h-6 w-6 text-green-600" animationType="spin" />
+          <Image src="/icon.png" alt="EcoFeed Icon" width={24} height={24} className="h-6 w-6" />
             <span className="font-bold text-xl">EcoFeed HK</span>
           </Link>
           <nav className="hidden md:flex gap-6">
