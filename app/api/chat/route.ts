@@ -70,26 +70,3 @@ export async function POST(request: Request) {
     );
   }
 }
-
-// In your handleSendMessage function in chat-widget.tsx
-const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    messages: apiMessages
-  })
-});
-
-if (!response.ok) {
-  throw new Error('API request failed');
-}
-
-const data = await response.json();
-if (data.response) {
-  // Add assistant response to chat
-  setMessages(prev => [...prev, { role: "assistant", content: data.response }]);
-} else {
-  throw new Error('Invalid response format');
-}
